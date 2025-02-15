@@ -11,31 +11,25 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
+            background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black;
             position: relative;
         }
 
-        video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-
-        .overlay {
+        video, .overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+        }
+
+        .overlay {
             display: none;
-            width: 80%;
-            max-width: 600px;
         }
 
     </style>
@@ -58,7 +52,7 @@
             if (!imagesShown) {
                 document.getElementById("image1").style.display = "block";
                 document.getElementById("image2").style.display = "block";
-                imagesShown = true; // Blokujemy kolejne kliknięcia
+                imagesShown = true; // Zapobiegamy kolejnemu pojawianiu
             }
         });
     </script>

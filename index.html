@@ -32,6 +32,21 @@
             display: none;
         }
 
+        .text-box {
+            position: absolute;
+            top: 10%;
+            left: 25%;
+            width: 50%;
+            height: 5%;
+            font-size: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid white;
+            padding: 10px;
+            display: none;
+            z-index: 2;
+        }
+
     </style>
 </head>
 <body>
@@ -45,6 +60,8 @@
     
     <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&dl=1" alt="Pole tekstowe 2">
 
+    <textarea id="text-box" class="text-box">zadaj pytanie o najemnika</textarea>
+
     <script>
         let imagesShown = false;
 
@@ -52,7 +69,8 @@
             if (!imagesShown) {
                 document.getElementById("image1").style.display = "block";
                 document.getElementById("image2").style.display = "block";
-                imagesShown = true; // Zapobiegamy kolejnemu pojawianiu
+                document.getElementById("text-box").style.display = "block";
+                imagesShown = true;
             }
         });
     </script>

@@ -8,26 +8,27 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: black;
         }
 
         video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
         }
     </style>
 </head>
 <body>
 
     <video id="animation" autoplay loop muted playsinline>
-        <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&raw=1" type="video/mp4">
+        <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&dl=1" type="video/mp4">
         Twoja przeglądarka nie obsługuje formatu MP4.
     </video>
 

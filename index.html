@@ -3,104 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animacja z interaktywnymi polami</title>
+    <title>Animacja Interaktywna</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            width: 100vw;
+            height: 100%;
+            width: 100%;
             overflow: hidden;
             background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .container {
             position: relative;
+            width: 100vw;
+            height: 56.25vw; /* Proporcja 16:9 */
+            max-height: 100vh;
+            max-width: 177.78vh; /* Proporcja 16:9 */
         }
-
+        video, .overlay, .text-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
         video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
-
         .overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
             display: none;
         }
-
         .text-box {
             position: absolute;
-            font-size: 2vh;
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid white;
-            text-align: center;
-            resize: none;
             display: none;
-            z-index: 2;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: 2px solid white;
+            padding: 10px;
+            font-size: 2vw;
+            font-family: monospace;
+            text-align: center;
+            box-sizing: border-box;
         }
-
     </style>
 </head>
 <body>
-
-    <video id="animation" autoplay loop muted playsinline>
-        <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&dl=1" type="video/mp4">
-        Twoja przeglądarka nie obsługuje formatu MP4.
-    </video>
-
-    <img id="image1" class="overlay" src="https://www.dropbox.com/scl/fi/q8v4h8795ubivua51fgfu/Pole-tekstowe-dla-uzytkownika.png?rlkey=zxryn0tqaxip01wa1lqkt5u8s&st=yplq6zeq&dl=1" alt="Pole tekstowe 1">
-    
-    <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&dl=1" alt="Pole tekstowe 2">
-
-    <textarea id="text-box" class="text-box">zadaj pytanie o najemnika</textarea>
+    <div class="container" onclick="showOverlay()">
+        <video autoplay loop muted playsinline>
+            <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&raw=1" type="video/mp4">
+        </video>
+        <img src="https://www.dropbox.com/scl/fi/q8v4h8795ubivua51fgfu/Pole-tekstowe-dla-uzytkownika.png?rlkey=zxryn0tqaxip01wa1lqkt5u8s&st=yplq6zeq&raw=1" class="overlay">
+        <img src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&raw=1" class="overlay">
+        <textarea class="text-box">zadaj pytanie o najemnika</textarea>
+    </div>
 
     <script>
-        let imagesShown = false;
-
-        function updateTextPosition() {
-            let video = document.getElementById("animation");
-            let textBox = document.getElementById("text-box");
-
-            let videoRect = video.getBoundingClientRect();
-
-            let textTop = videoRect.top + (videoRect.height * 0.08);
-            let textLeft = videoRect.left + (videoRect.width * 0.15);
-            let textWidth = videoRect.width * 0.7;
-            let textHeight = videoRect.height * 0.08;
-
-            textBox.style.top = `${textTop}px`;
-            textBox.style.left = `${textLeft}px`;
-            textBox.style.width = `${textWidth}px`;
-            textBox.style.height = `${textHeight}px`;
-            textBox.style.fontSize = `${textHeight * 0.5}px`;
-        }
-
-        document.getElementById("animation").addEventListener("click", function() {
-            if (!imagesShown) {
-                document.getElementById("image1").style.display = "block";
-                document.getElementById("image2").style.display = "block";
-                document.getElementById("text-box").style.display = "block";
-
-                updateTextPosition();
-
-                imagesShown = true;
+        let overlayVisible = false;
+        function showOverlay() {
+            if (!overlayVisible) {
+                document.querySelectorAll('.overlay').forEach(el => el.style.display = 'block');
+                document.querySelector('.text-box').style.display = 'block';
+                overlayVisible = true;
             }
-        });
-
-        window.addEventListener("resize", updateTextPosition);
+        }
+        function adjustTextBox() {
+            let container = document.querySelector('.container');
+            let textBox = document.querySelector('.text-box');
+            textBox.style.top = (container.clientHeight * 0.1) + 'px';
+            textBox.style.left = (container.clientWidth * 0.15) + 'px';
+            textBox.style.width = (container.clientWidth * 0.7) + 'px';
+            textBox.style.height = (container.clientHeight * 0.1) + 'px';
+            textBox.style.fontSize = (container.clientHeight * 0.04) + 'px';
+        }
+        window.addEventListener('resize', adjustTextBox);
+        window.addEventListener('load', adjustTextBox);
     </script>
-
 </body>
 </html>
+

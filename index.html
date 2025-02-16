@@ -18,7 +18,7 @@
             position: relative;
         }
 
-        video, .overlay {
+        video, .overlay, .text-ref {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -32,21 +32,21 @@
             display: none;
         }
 
+        .text-ref {
+            display: none;
+            pointer-events: none;
+        }
+
         .text-box {
             position: absolute;
-            top: 10%;
-            left: 20%;
-            width: 60%;
-            height: 5%;
-            font-size: 20px;
+            font-size: 2vh;
             color: white;
             background: rgba(0, 0, 0, 0.7);
             border: 2px solid white;
-            padding: 10px;
-            display: none;
-            z-index: 2;
             text-align: center;
             resize: none;
+            display: none;
+            z-index: 2;
         }
 
     </style>
@@ -62,19 +62,39 @@
     
     <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&dl=1" alt="Pole tekstowe 2">
 
+    <img id="text-ref" class="text-ref" src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/brązowe-pole.png?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&dl=1" alt="Referencja pozycji">
+
     <textarea id="text-box" class="text-box">zadaj pytanie o najemnika</textarea>
 
     <script>
         let imagesShown = false;
+
+        function updateTextPosition() {
+            let ref = document.getElementById("text-ref");
+            let textBox = document.getElementById("text-box");
+
+            let rect = ref.getBoundingClientRect();
+
+            textBox.style.top = `${rect.top}px`;
+            textBox.style.left = `${rect.left}px`;
+            textBox.style.width = `${rect.width}px`;
+            textBox.style.height = `${rect.height}px`;
+        }
 
         document.getElementById("animation").addEventListener("click", function() {
             if (!imagesShown) {
                 document.getElementById("image1").style.display = "block";
                 document.getElementById("image2").style.display = "block";
                 document.getElementById("text-box").style.display = "block";
+                document.getElementById("text-ref").style.display = "block";
+
+                updateTextPosition();
+
                 imagesShown = true;
             }
         });
+
+        window.addEventListener("resize", updateTextPosition);
     </script>
 
 </body>

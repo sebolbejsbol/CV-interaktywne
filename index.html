@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animacja Interaktywna</title>
+    <title>Animacja z interaktywnym polem tekstowym</title>
     <style>
         html, body {
             margin: 0;
@@ -16,69 +16,79 @@
             justify-content: center;
             align-items: center;
         }
+
         .container {
             position: relative;
             width: 100vw;
-            height: 56.25vw; /* Proporcja 16:9 */
-            max-height: 100vh;
-            max-width: 177.78vh; /* Proporcja 16:9 */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        video, .overlay, .text-box {
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: absolute;
+        }
+
+        .overlay {
             position: absolute;
             width: 100%;
             height: 100%;
-        }
-        video {
-            object-fit: cover;
-        }
-        .overlay {
             display: none;
+            justify-content: center;
+            align-items: center;
         }
+
         .text-box {
             position: absolute;
-            display: none;
-            background: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            border: 2px solid white;
-            padding: 10px;
             font-size: 2vw;
-            font-family: monospace;
             text-align: center;
-            box-sizing: border-box;
+            border: 2px solid white;
+            resize: none;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        @media (min-aspect-ratio: 16/9) {
+            .text-box {
+                width: 40vw; /* Skalowane do szerokości brązowego pola */
+                height: 5vw;
+                top: 10%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            .text-box {
+                width: 60vh; /* Skalowane do szerokości brązowego pola */
+                height: 7vh;
+                top: 10%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container" onclick="showOverlay()">
         <video autoplay loop muted playsinline>
-            <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&raw=1" type="video/mp4">
+            <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&raw=1" type="video/mp4">
         </video>
-        <img src="https://www.dropbox.com/scl/fi/q8v4h8795ubivua51fgfu/Pole-tekstowe-dla-uzytkownika.png?rlkey=zxryn0tqaxip01wa1lqkt5u8s&st=yplq6zeq&raw=1" class="overlay">
-        <img src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&raw=1" class="overlay">
-        <textarea class="text-box">zadaj pytanie o najemnika</textarea>
+        <div class="overlay" id="overlay">
+            <textarea class="text-box">zadaj pytanie o najemnika</textarea>
+        </div>
     </div>
 
     <script>
-        let overlayVisible = false;
         function showOverlay() {
-            if (!overlayVisible) {
-                document.querySelectorAll('.overlay').forEach(el => el.style.display = 'block');
-                document.querySelector('.text-box').style.display = 'block';
-                overlayVisible = true;
-            }
+            document.getElementById('overlay').style.display = 'flex';
         }
-        function adjustTextBox() {
-            let container = document.querySelector('.container');
-            let textBox = document.querySelector('.text-box');
-            textBox.style.top = (container.clientHeight * 0.1) + 'px';
-            textBox.style.left = (container.clientWidth * 0.15) + 'px';
-            textBox.style.width = (container.clientWidth * 0.7) + 'px';
-            textBox.style.height = (container.clientHeight * 0.1) + 'px';
-            textBox.style.fontSize = (container.clientHeight * 0.04) + 'px';
-        }
-        window.addEventListener('resize', adjustTextBox);
-        window.addEventListener('load', adjustTextBox);
     </script>
 </body>
 </html>
-

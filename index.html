@@ -18,23 +18,25 @@
             position: relative;
         }
 
-        video, .overlay, .text-ref {
+        video {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
         }
 
         .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             display: none;
-        }
-
-        .text-ref {
-            display: none;
-            pointer-events: none;
         }
 
         .text-box {
@@ -62,23 +64,27 @@
     
     <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&dl=1" alt="Pole tekstowe 2">
 
-    <img id="text-ref" class="text-ref" src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/brązowe-pole.png?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&dl=1" alt="Referencja pozycji">
-
     <textarea id="text-box" class="text-box">zadaj pytanie o najemnika</textarea>
 
     <script>
         let imagesShown = false;
 
         function updateTextPosition() {
-            let ref = document.getElementById("text-ref");
+            let video = document.getElementById("animation");
             let textBox = document.getElementById("text-box");
 
-            let rect = ref.getBoundingClientRect();
+            let videoRect = video.getBoundingClientRect();
 
-            textBox.style.top = `${rect.top}px`;
-            textBox.style.left = `${rect.left}px`;
-            textBox.style.width = `${rect.width}px`;
-            textBox.style.height = `${rect.height}px`;
+            let textTop = videoRect.top + (videoRect.height * 0.08);
+            let textLeft = videoRect.left + (videoRect.width * 0.15);
+            let textWidth = videoRect.width * 0.7;
+            let textHeight = videoRect.height * 0.08;
+
+            textBox.style.top = `${textTop}px`;
+            textBox.style.left = `${textLeft}px`;
+            textBox.style.width = `${textWidth}px`;
+            textBox.style.height = `${textHeight}px`;
+            textBox.style.fontSize = `${textHeight * 0.5}px`;
         }
 
         document.getElementById("animation").addEventListener("click", function() {
@@ -86,7 +92,6 @@
                 document.getElementById("image1").style.display = "block";
                 document.getElementById("image2").style.display = "block";
                 document.getElementById("text-box").style.display = "block";
-                document.getElementById("text-ref").style.display = "block";
 
                 updateTextPosition();
 

@@ -49,6 +49,7 @@
             resize: none;
             display: none;
             z-index: 2;
+            padding: 5px;
         }
 
     </style>
@@ -56,13 +57,13 @@
 <body>
 
     <video id="animation" autoplay loop muted playsinline>
-        <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&st=04cpnx9c&dl=1" type="video/mp4">
+        <source src="https://www.dropbox.com/scl/fi/u2m8igmjo2p9c15c6ea8h/animacja-podstawowa-do-gry.mp4?rlkey=wh910iq07helx9e9vn76s6plt&raw=1" type="video/mp4">
         Twoja przeglądarka nie obsługuje formatu MP4.
     </video>
 
-    <img id="image1" class="overlay" src="https://www.dropbox.com/scl/fi/q8v4h8795ubivua51fgfu/Pole-tekstowe-dla-uzytkownika.png?rlkey=zxryn0tqaxip01wa1lqkt5u8s&st=yplq6zeq&dl=1" alt="Pole tekstowe 1">
+    <img id="image1" class="overlay" src="https://www.dropbox.com/scl/fi/q8v4h8795ubivua51fgfu/Pole-tekstowe-dla-uzytkownika.png?rlkey=zxryn0tqaxip01wa1lqkt5u8s&raw=1" alt="Pole tekstowe 1">
     
-    <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&dl=1" alt="Pole tekstowe 2">
+    <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&raw=1" alt="Pole tekstowe 2">
 
     <textarea id="text-box" class="text-box">zadaj pytanie o najemnika</textarea>
 
@@ -75,9 +76,10 @@
 
             let videoRect = video.getBoundingClientRect();
 
+            // Ustal proporcje pola tekstowego na podstawie brązowego pola
             let textTop = videoRect.top + (videoRect.height * 0.08);
-            let textLeft = videoRect.left + (videoRect.width * 0.15);
-            let textWidth = videoRect.width * 0.7;
+            let textLeft = videoRect.left + (videoRect.width * 0.225);
+            let textWidth = videoRect.width * 0.55; // Precyzyjnie dostosowane
             let textHeight = videoRect.height * 0.08;
 
             textBox.style.top = `${textTop}px`;

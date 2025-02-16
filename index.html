@@ -38,19 +38,6 @@
             object-fit: contain;
             display: none;
         }
-
-        .text-box {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid white;
-            color: white;
-            text-align: center;
-            resize: none;
-            display: none;
-            z-index: 2;
-            overflow: hidden;
-            white-space: nowrap;
-        }
     </style>
 </head>
 <body>
@@ -64,43 +51,16 @@
     
     <img id="image2" class="overlay" src="https://www.dropbox.com/scl/fi/ny6ia2cscykv2h0npjrep/pole-tekstowe-do-odpowiadania.png?rlkey=ecw9b9qtxzq8gq5dtunog4ak1&st=kz9d2nkd&dl=1" alt="Pole tekstowe 2">
 
-    <textarea id="text-box" class="text-box">zadaj pytanie o najemnika</textarea>
-
     <script>
         let imagesShown = false;
-
-        function updateTextPosition() {
-            let video = document.getElementById("animation");
-            let textBox = document.getElementById("text-box");
-
-            let videoRect = video.getBoundingClientRect();
-
-            // Pozycjonowanie względem proporcji 1920x1080
-            let textTop = videoRect.top + (videoRect.height * 0.08);
-            let textLeft = videoRect.left + (videoRect.width * 0.25);
-            let textWidth = videoRect.width * 0.5;
-            let textHeight = videoRect.height * 0.07;
-
-            textBox.style.top = `${textTop}px`;
-            textBox.style.left = `${textLeft}px`;
-            textBox.style.width = `${textWidth}px`;
-            textBox.style.height = `${textHeight}px`;
-            textBox.style.fontSize = `${textHeight * 0.5}px`;
-        }
 
         document.getElementById("animation").addEventListener("click", function() {
             if (!imagesShown) {
                 document.getElementById("image1").style.display = "block";
                 document.getElementById("image2").style.display = "block";
-                document.getElementById("text-box").style.display = "block";
-
-                updateTextPosition();
-
                 imagesShown = true;
             }
         });
-
-        window.addEventListener("resize", updateTextPosition);
     </script>
 
 </body>

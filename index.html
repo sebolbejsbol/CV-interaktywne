@@ -41,34 +41,15 @@
 
         .text-box {
             position: absolute;
-            font-size: 2vh;
-            color: white;
             background: rgba(0, 0, 0, 0.7);
             border: 2px solid white;
+            color: white;
             text-align: center;
             resize: none;
             display: none;
             z-index: 2;
-        }
-
-        @media (min-aspect-ratio: 16/9) {
-            .text-box {
-                width: 40vw; /* Dopasowanie do szerokości pergaminu */
-                height: 5vw;
-                top: 10%;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-
-        @media (max-aspect-ratio: 16/9) {
-            .text-box {
-                width: 60vh; /* Dopasowanie do szerokości pergaminu */
-                height: 7vh;
-                top: 10%;
-                left: 50%;
-                transform: translateX(-50%);
-            }
+            overflow: hidden;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -94,10 +75,11 @@
 
             let videoRect = video.getBoundingClientRect();
 
+            // Pozycjonowanie względem proporcji 1920x1080
             let textTop = videoRect.top + (videoRect.height * 0.08);
-            let textLeft = videoRect.left + (videoRect.width * 0.15);
-            let textWidth = videoRect.width * 0.7;
-            let textHeight = videoRect.height * 0.08;
+            let textLeft = videoRect.left + (videoRect.width * 0.25);
+            let textWidth = videoRect.width * 0.5;
+            let textHeight = videoRect.height * 0.07;
 
             textBox.style.top = `${textTop}px`;
             textBox.style.left = `${textLeft}px`;
